@@ -6,7 +6,360 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#080d19">
     <title>My Speedcubing Program</title>
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root {
+            --bg: #080d19;
+            --card: #111b2d;
+            --blue: #5794ff;
+            --cyan: #55dcff;
+            --text: #f4f7ff;
+            --muted: #97a7c0;
+            --border: #263650;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            background:
+                radial-gradient(ellipse at 75% 15%, #183567 0%, transparent 35%),
+                radial-gradient(ellipse at 15% 80%, #102342 0%, transparent 40%),
+                var(--bg);
+            font-family: Inter, system-ui, Arial, sans-serif;
+        }
+
+        .container {
+            width: min(1000px, 90%);
+            margin: auto;
+        }
+
+        .topbar {
+            min-height: 90px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid #ffffff12;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: linear-gradient(135deg, var(--blue), #7559ff);
+            font-size: 22px;
+            box-shadow: 0 5px 25px #5794ff30;
+        }
+
+        .accent {
+            color: var(--cyan);
+        }
+
+        .status {
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.3px;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            margin-right: 6px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 10px var(--cyan);
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 75px 0 65px;
+        }
+
+        .eyebrow,
+        .step-label {
+            color: var(--cyan);
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            margin: 19px 0;
+            font-size: clamp(42px, 7vw, 70px);
+            line-height: 1.06;
+            letter-spacing: -3px;
+        }
+
+        .hero p {
+            max-width: 500px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .cube-decoration {
+            position: absolute;
+            top: 85px;
+            right: 60px;
+            width: 130px;
+            height: 130px;
+            transform: rotate(-18deg);
+            opacity: .9;
+        }
+
+        .cube-face {
+            position: absolute;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            width: 78px;
+            height: 78px;
+            padding: 4px;
+            border: 3px solid #070b14;
+            border-radius: 7px;
+        }
+
+        .cube-face span {
+            border: 2px solid #080d19;
+            border-radius: 4px;
+        }
+
+        .face-top {
+            top: 0;
+            left: 25px;
+            transform: skewY(-27deg) scaleY(.72);
+            background: #111;
+        }
+
+        .face-top span {
+            background: #f8f8f8;
+        }
+
+        .face-left {
+            top: 48px;
+            left: 0;
+            transform: skewY(27deg) scaleY(.8);
+            background: #111;
+        }
+
+        .face-left span {
+            background: #ff9c32;
+        }
+
+        .face-right {
+            top: 48px;
+            left: 49px;
+            transform: skewY(-27deg) scaleY(.8);
+            background: #111;
+        }
+
+        .face-right span {
+            background: #49d77e;
+        }
+
+        .setup-card {
+            max-width: 650px;
+            padding: 32px;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            background: linear-gradient(145deg, #14223aee, #101827f5);
+            box-shadow: 0 20px 70px #00000020;
+        }
+
+        .setup-card h2 {
+            margin: 15px 0 8px;
+            font-size: 28px;
+            letter-spacing: -.8px;
+        }
+
+        .description {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .check-option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 25px;
+            padding: 18px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #0b1424;
+            cursor: pointer;
+            transition: border-color .2s, background .2s;
+        }
+
+        .check-option:has(input:checked) {
+            border-color: var(--blue);
+            background: #16294a;
+        }
+
+        .check-option input {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+        }
+
+        .custom-check {
+            display: grid;
+            place-items: center;
+            width: 23px;
+            height: 23px;
+            flex-shrink: 0;
+            border: 2px solid #667997;
+            border-radius: 7px;
+            color: #07101e;
+            transition: .2s;
+        }
+
+        .check-option input:checked + .custom-check {
+            border-color: var(--cyan);
+            background: var(--cyan);
+        }
+
+        .check-option input:checked + .custom-check::after {
+            content: "✓";
+            font-weight: 900;
+        }
+
+        .check-option input:focus-visible + .custom-check {
+            outline: 3px solid white;
+            outline-offset: 3px;
+        }
+
+        .check-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .check-copy strong {
+            font-size: 14px;
+        }
+
+        .check-copy small {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        #nextButton {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            width: 100%;
+            margin-top: 22px;
+            padding: 16px 20px;
+            border: 0;
+            border-radius: 12px;
+            color: white;
+            background: linear-gradient(100deg, #4385ff, #6558ff);
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform .2s, opacity .2s, box-shadow .2s;
+        }
+
+        #nextButton:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px #4385ff35;
+        }
+
+        #nextButton:disabled {
+            color: #8290a7;
+            background: #202b3e;
+            cursor: not-allowed;
+            opacity: .85;
+        }
+
+        .arrow {
+            font-size: 22px;
+        }
+
+        .hint {
+            margin: 15px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+            text-align: center;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 45px 0 25px;
+            color: #687994;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 650px) {
+            .topbar {
+                min-height: 75px;
+            }
+
+            .status {
+                max-width: 100px;
+                line-height: 1.6;
+                text-align: right;
+            }
+
+            .hero {
+                padding: 55px 0 35px;
+            }
+
+            .hero h1 {
+                font-size: 45px;
+                letter-spacing: -2px;
+            }
+
+            .cube-decoration {
+                top: 35px;
+                right: -30px;
+                opacity: .22;
+                transform: scale(.8) rotate(-18deg);
+            }
+
+            .setup-card {
+                padding: 23px;
+            }
+
+            footer {
+                flex-direction: column;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                transition: none !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -17,6 +370,7 @@
                 <span class="brand-icon">M</span>
                 <span>MJCUBER <span class="accent">TRAINING</span></span>
             </a>
+
             <span class="status">
                 <span class="status-dot"></span>
                 YOUR JOURNEY STARTS HERE
@@ -39,11 +393,13 @@
                     <span></span><span></span><span></span>
                     <span></span><span></span><span></span>
                 </div>
+
                 <div class="cube-face face-left">
                     <span></span><span></span><span></span>
                     <span></span><span></span><span></span>
                     <span></span><span></span><span></span>
                 </div>
+
                 <div class="cube-face face-right">
                     <span></span><span></span><span></span>
                     <span></span><span></span><span></span>
@@ -65,6 +421,7 @@
             <label class="check-option" for="cfop">
                 <input type="checkbox" id="cfop">
                 <span class="custom-check" aria-hidden="true"></span>
+
                 <span class="check-copy">
                     <strong>Yes, I know full CFOP</strong>
                     <small>Cross, F2L, full OLL and full PLL</small>
@@ -109,7 +466,6 @@
         });
 
         nextButton.addEventListener("click", () => {
-            // Double-check before navigating.
             if (!cfopCheckbox.checked) return;
 
             window.location.href = "page2.html";
@@ -117,4 +473,3 @@
     </script>
 </body>
 </html>
-
