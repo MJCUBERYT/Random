@@ -19,9 +19,7 @@
     --green: #4ade80;
 }
 
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -33,9 +31,7 @@ body {
     font-family: Inter, system-ui, Arial, sans-serif;
 }
 
-button, input {
-    font: inherit;
-}
+button, input { font: inherit; }
 
 .container {
     width: min(1100px, 92%);
@@ -145,9 +141,7 @@ h1 {
     margin-bottom: 15px;
 }
 
-.progress-heading strong {
-    font-size: 15px;
-}
+.progress-heading strong { font-size: 15px; }
 
 #progressText {
     color: var(--cyan);
@@ -297,9 +291,7 @@ h1 {
     font-weight: 900;
 }
 
-.task.completed .complete-label {
-    color: var(--green);
-}
+.task.completed .complete-label { color: var(--green); }
 
 .details-button {
     border: 1px solid #35445e;
@@ -312,9 +304,7 @@ h1 {
     transition: background 0.2s;
 }
 
-.details-button:hover {
-    background: #253755;
-}
+.details-button:hover { background: #253755; }
 
 .tips {
     display: none;
@@ -327,13 +317,8 @@ h1 {
     line-height: 1.8;
 }
 
-.tips.open {
-    display: block;
-}
-
-.tips strong {
-    color: var(--cyan);
-}
+.tips.open { display: block; }
+.tips strong { color: var(--cyan); }
 
 .actions {
     display: flex;
@@ -365,25 +350,11 @@ footer {
 }
 
 @media (max-width: 700px) {
-    .container {
-        padding-top: 24px;
-    }
-
-    .task-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .hero {
-        padding: 23px;
-    }
-
-    .progress-panel {
-        padding: 18px;
-    }
-
-    .today {
-        display: none;
-    }
+    .container { padding-top: 24px; }
+    .task-grid { grid-template-columns: 1fr; }
+    .hero { padding: 23px; }
+    .progress-panel { padding: 18px; }
+    .today { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -423,15 +394,13 @@ footer {
             <span id="progressText">0%</span>
         </div>
 
-        <div
-            class="progress-track"
-            role="progressbar"
-            aria-label="Daily training progress"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            aria-valuenow="0"
-            id="progressTrack"
-        >
+        <div class="progress-track"
+             role="progressbar"
+             aria-label="Daily training progress"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             aria-valuenow="0"
+             id="progressTrack">
             <div id="progressBar"></div>
         </div>
 
@@ -466,9 +435,7 @@ footer {
                     <input type="checkbox" aria-label="Complete PLL Training">
                     Mark complete
                 </label>
-                <button class="details-button" aria-expanded="false">
-                    Training tips +
-                </button>
+                <button class="details-button" aria-expanded="false">Training tips +</button>
             </div>
             <div class="tips">
                 <strong>Focus:</strong><br>
@@ -495,9 +462,7 @@ footer {
                     <input type="checkbox" aria-label="Complete OLL Training">
                     Mark complete
                 </label>
-                <button class="details-button" aria-expanded="false">
-                    Training tips +
-                </button>
+                <button class="details-button" aria-expanded="false">Training tips +</button>
             </div>
             <div class="tips">
                 <strong>Focus:</strong><br>
@@ -524,9 +489,7 @@ footer {
                     <input type="checkbox" aria-label="Complete Blind Cross">
                     Mark complete
                 </label>
-                <button class="details-button" aria-expanded="false">
-                    Training tips +
-                </button>
+                <button class="details-button" aria-expanded="false">Training tips +</button>
             </div>
             <div class="tips">
                 <strong>Focus:</strong><br>
@@ -553,9 +516,7 @@ footer {
                     <input type="checkbox" aria-label="Complete F2L Lookahead">
                     Mark complete
                 </label>
-                <button class="details-button" aria-expanded="false">
-                    Training tips +
-                </button>
+                <button class="details-button" aria-expanded="false">Training tips +</button>
             </div>
             <div class="tips">
                 <strong>Focus:</strong><br>
@@ -572,8 +533,7 @@ footer {
                 <div>
                     <h3>Rotationless F2L</h3>
                     <p class="task-description">
-                        Practise back and left-side pairs using efficient
-                        solutions with fewer cube rotations.
+                        Practice having maximum 2 cube rotations during f2l using efficient solutions.
                     </p>
                 </div>
             </div>
@@ -582,9 +542,7 @@ footer {
                     <input type="checkbox" aria-label="Complete Rotationless F2L">
                     Mark complete
                 </label>
-                <button class="details-button" aria-expanded="false">
-                    Training tips +
-                </button>
+                <button class="details-button" aria-expanded="false">Training tips +</button>
             </div>
             <div class="tips">
                 <strong>Focus:</strong><br>
@@ -611,9 +569,7 @@ footer {
                     <input type="checkbox" aria-label="Complete Learn From the Best">
                     Mark complete
                 </label>
-                <button class="details-button" aria-expanded="false">
-                    Training tips +
-                </button>
+                <button class="details-button" aria-expanded="false">Training tips +</button>
             </div>
             <div class="tips">
                 <strong>Focus:</strong><br>
@@ -650,7 +606,6 @@ footer {
     const todayElement = document.getElementById("today");
     const resetButton = document.getElementById("resetButton");
 
-    // Use the local calendar date so progress resets each new day.
     const now = new Date();
     const dateKey =
         now.getFullYear() + "-" +
@@ -676,7 +631,6 @@ footer {
                 task.classList.toggle("completed", checkbox.checked);
             });
         } catch (error) {
-            // If saved data is unavailable, start with unchecked tasks.
             tasks.forEach(task => {
                 task.querySelector('input[type="checkbox"]').checked = false;
                 task.classList.remove("completed");
@@ -697,7 +651,7 @@ footer {
         try {
             localStorage.setItem(storageKey, JSON.stringify(progress));
         } catch (error) {
-            // The checklist still works if browser storage is disabled.
+            // Checklist remains usable if browser storage is disabled.
         }
     }
 
