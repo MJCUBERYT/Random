@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#080d19">
-    <title>My Speedcubing Program</title>
+    <title>MJCUBER Training</title>
 
     <style>
         :root {
             --bg: #080d19;
-            --card: #111b2d;
             --blue: #5794ff;
             --cyan: #55dcff;
             --text: #f4f7ff;
@@ -92,8 +91,17 @@
 
         .hero {
             position: relative;
+            display: flex;
+            align-items: center;
+            min-height: 310px;
             overflow: hidden;
-            padding: 75px 0 65px;
+            padding: 55px 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 580px;
         }
 
         .eyebrow,
@@ -112,70 +120,86 @@
         }
 
         .hero p {
-            max-width: 500px;
+            max-width: 470px;
             color: var(--muted);
             font-size: 16px;
             line-height: 1.8;
         }
 
+        /* Three precisely aligned cube faces */
         .cube-decoration {
             position: absolute;
-            top: 85px;
-            right: 60px;
-            width: 130px;
-            height: 130px;
-            transform: rotate(-18deg);
-            opacity: .9;
+            width: 180px;
+            height: 180px;
+            top: 55px;
+            right: 65px;
+            perspective: 700px;
+            opacity: .95;
+            filter: drop-shadow(0 18px 25px #0008);
+        }
+
+        .cube {
+            position: absolute;
+            inset: 0;
+            transform-style: preserve-3d;
+            transform: rotateX(-24deg) rotateY(-35deg);
+            animation: cube-float 5s ease-in-out infinite;
         }
 
         .cube-face {
             position: absolute;
+            top: 40px;
+            left: 40px;
+            width: 100px;
+            height: 100px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
             gap: 4px;
-            width: 78px;
-            height: 78px;
-            padding: 4px;
-            border: 3px solid #070b14;
-            border-radius: 7px;
+            padding: 5px;
+            border: 3px solid #080d19;
+            border-radius: 8px;
+            background: #080d19;
+            backface-visibility: hidden;
         }
 
         .cube-face span {
+            display: block;
             border: 2px solid #080d19;
-            border-radius: 4px;
+            border-radius: 5px;
         }
 
-        .face-top {
-            top: 0;
-            left: 25px;
-            transform: skewY(-27deg) scaleY(.72);
-            background: #111;
+        .cube-front {
+            transform: translateZ(50px);
         }
 
-        .face-top span {
-            background: #f8f8f8;
+        .cube-front span {
+            background: #38d875;
         }
 
-        .face-left {
-            top: 48px;
-            left: 0;
-            transform: skewY(27deg) scaleY(.8);
-            background: #111;
+        .cube-right {
+            transform: rotateY(90deg) translateZ(50px);
         }
 
-        .face-left span {
-            background: #ff9c32;
+        .cube-right span {
+            background: #ff9638;
         }
 
-        .face-right {
-            top: 48px;
-            left: 49px;
-            transform: skewY(-27deg) scaleY(.8);
-            background: #111;
+        .cube-top {
+            transform: rotateX(90deg) translateZ(50px);
         }
 
-        .face-right span {
-            background: #49d77e;
+        .cube-top span {
+            background: #f7f7f7;
+        }
+
+        @keyframes cube-float {
+            0%, 100% {
+                transform: rotateX(-24deg) rotateY(-35deg) translateY(0);
+            }
+            50% {
+                transform: rotateX(-24deg) rotateY(-35deg) translateY(-7px);
+            }
         }
 
         .setup-card {
@@ -281,7 +305,7 @@
             font-size: 14px;
             font-weight: 800;
             cursor: pointer;
-            transition: transform .2s, opacity .2s, box-shadow .2s;
+            transition: transform .2s, box-shadow .2s;
         }
 
         #nextButton:not(:disabled):hover {
@@ -330,7 +354,8 @@
             }
 
             .hero {
-                padding: 55px 0 35px;
+                min-height: 280px;
+                padding: 45px 0 35px;
             }
 
             .hero h1 {
@@ -338,11 +363,16 @@
                 letter-spacing: -2px;
             }
 
+            .hero p {
+                max-width: 340px;
+                font-size: 14px;
+            }
+
             .cube-decoration {
-                top: 35px;
-                right: -30px;
-                opacity: .22;
-                transform: scale(.8) rotate(-18deg);
+                top: 45px;
+                right: -75px;
+                opacity: .23;
+                transform: scale(.8);
             }
 
             .setup-card {
@@ -356,6 +386,7 @@
 
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
+                animation: none !important;
                 transition: none !important;
             }
         }
@@ -378,32 +409,36 @@
         </header>
 
         <section class="hero">
-            <div class="eyebrow">THE SPEEDCUBING PROGRAM</div>
+            <div class="hero-content">
+                <div class="eyebrow">THE SPEEDCUBING PROGRAM</div>
 
-            <h1>Ready to level up<br>your <span class="accent">solves?</span></h1>
+                <h1>Ready to level up<br>your <span class="accent">solves?</span></h1>
 
-            <p>
-                Build your skills, sharpen your recognition, and work
-                toward faster, smoother CFOP solves.
-            </p>
+                <p>
+                    Build your skills, sharpen your recognition, and work
+                    toward faster, smoother CFOP solves.
+                </p>
+            </div>
 
             <div class="cube-decoration" aria-hidden="true">
-                <div class="cube-face face-top">
-                    <span></span><span></span><span></span>
-                    <span></span><span></span><span></span>
-                    <span></span><span></span><span></span>
-                </div>
+                <div class="cube">
+                    <div class="cube-face cube-front">
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                    </div>
 
-                <div class="cube-face face-left">
-                    <span></span><span></span><span></span>
-                    <span></span><span></span><span></span>
-                    <span></span><span></span><span></span>
-                </div>
+                    <div class="cube-face cube-right">
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                    </div>
 
-                <div class="cube-face face-right">
-                    <span></span><span></span><span></span>
-                    <span></span><span></span><span></span>
-                    <span></span><span></span><span></span>
+                    <div class="cube-face cube-top">
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -467,7 +502,6 @@
 
         nextButton.addEventListener("click", () => {
             if (!cfopCheckbox.checked) return;
-
             window.location.href = "page2.html";
         });
     </script>
