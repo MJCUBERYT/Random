@@ -1,15 +1,120 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080d19">
     <title>My Speedcubing Program</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>My Speedcubing Program</h1>
-    <a href="page2.html">
-       <button style="border solid black: 1px; border-radius: 50px; text-align: right;">></button>
-    </a>
-    <h2>Do you know full CFOP?</h2><input type="checkbox" id="subscribe">
+    <main class="container">
+
+        <header class="topbar">
+            <a class="brand" href="index.html">
+                <span class="brand-icon">M</span>
+                <span>MJCUBER <span class="accent">TRAINING</span></span>
+            </a>
+            <span class="status">
+                <span class="status-dot"></span>
+                YOUR JOURNEY STARTS HERE
+            </span>
+        </header>
+
+        <section class="hero">
+            <div class="eyebrow">THE SPEEDCUBING PROGRAM</div>
+
+            <h1>Ready to level up<br>your <span class="accent">solves?</span></h1>
+
+            <p>
+                Build your skills, sharpen your recognition, and work
+                toward faster, smoother CFOP solves.
+            </p>
+
+            <div class="cube-decoration" aria-hidden="true">
+                <div class="cube-face face-top">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                </div>
+                <div class="cube-face face-left">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                </div>
+                <div class="cube-face face-right">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="setup-card">
+            <div class="step-label">STEP 01 / SETUP</div>
+
+            <h2>Know your CFOP?</h2>
+
+            <p class="description">
+                Before continuing, tell us if you already know full CFOP.
+                This decides whether you can enter the next part of the program.
+            </p>
+
+            <label class="check-option" for="cfop">
+                <input type="checkbox" id="cfop">
+                <span class="custom-check" aria-hidden="true"></span>
+                <span class="check-copy">
+                    <strong>Yes, I know full CFOP</strong>
+                    <small>Cross, F2L, full OLL and full PLL</small>
+                </span>
+            </label>
+
+            <button id="nextButton" type="button" disabled>
+                <span id="buttonText">Complete setup to continue</span>
+                <span class="arrow" aria-hidden="true">→</span>
+            </button>
+
+            <p class="hint" id="hint" aria-live="polite">
+                Check the box above to unlock Page 2.
+            </p>
+        </section>
+
+        <footer>
+            <span>MADE FOR CUBERS</span>
+            <span>IMPROVE ONE SOLVE AT A TIME. 🧊</span>
+        </footer>
+
+    </main>
+
+    <script>
+        const cfopCheckbox = document.getElementById("cfop");
+        const nextButton = document.getElementById("nextButton");
+        const buttonText = document.getElementById("buttonText");
+        const hint = document.getElementById("hint");
+
+        cfopCheckbox.addEventListener("change", () => {
+            const unlocked = cfopCheckbox.checked;
+
+            nextButton.disabled = !unlocked;
+
+            buttonText.textContent = unlocked
+                ? "Continue to Page 2"
+                : "Complete setup to continue";
+
+            hint.textContent = unlocked
+                ? "✓ Setup complete! Page 2 is unlocked."
+                : "Check the box above to unlock Page 2.";
+        });
+
+        nextButton.addEventListener("click", () => {
+            // Double-check before navigating.
+            if (!cfopCheckbox.checked) return;
+
+            window.location.href = "page2.html";
+        });
+    </script>
 </body>
 </html>
+
