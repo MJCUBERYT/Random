@@ -1,27 +1,261 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Speedcubing Program</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MJCUBER Training</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 40px 20px;
+            background:
+                radial-gradient(ellipse at top, #102b52 0%, transparent 55%),
+                #050914;
+            color: #f1f5ff;
+            font-family: Arial, sans-serif;
+        }
+
+        .back {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            display: inline-block;
+            padding: 12px 18px;
+            border: 1px solid #168cff;
+            border-radius: 12px;
+            color: #65baff;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .back:hover {
+            background: #168cff22;
+            box-shadow: 0 0 20px #168cff55;
+        }
+
+        header {
+            text-align: center;
+            margin: 30px auto 35px;
+        }
+
+        .cube {
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(34px, 6vw, 58px);
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        h1 span {
+            display: block;
+            color: #16baff;
+        }
+
+        .subtitle {
+            color: #91a9d1;
+            letter-spacing: 4px;
+            font-size: 12px;
+            margin-top: 16px;
+        }
+
+        .training {
+            max-width: 800px;
+            margin: auto;
+            display: grid;
+            gap: 14px;
+        }
+
+        .task {
+            --accent: #168cff;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 20px;
+            background: linear-gradient(
+                110deg,
+                #101b30,
+                #080f1e
+            );
+            border: 1px solid #173761;
+            border-left: 4px solid var(--accent);
+            border-radius: 16px;
+            transition: transform 0.2s,
+                        border-color 0.2s,
+                        box-shadow 0.2s;
+        }
+
+        .task:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: 0 8px 28px #0008;
+        }
+
+        .number {
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .task h2 {
+            font-size: 17px;
+            margin: 0 0 8px;
+        }
+
+        .task p {
+            color: #9eb1d0;
+            line-height: 1.6;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .pll { --accent: #bd65ff; }
+        .oll { --accent: #ffb52e; }
+        .cross { --accent: #16baff; }
+        .f2l { --accent: #36e99a; }
+        .rotation { --accent: #ff526d; }
+        .walkthrough { --accent: #00e5e5; }
+
+        footer {
+            text-align: center;
+            margin: 35px 0 5px;
+            color: #168cff;
+            font-size: 12px;
+            letter-spacing: 5px;
+        }
+
+        @media (max-width: 500px) {
+            body {
+                padding: 25px 14px;
+            }
+
+            header {
+                margin-top: 65px;
+            }
+
+            .task {
+                gap: 12px;
+                padding: 16px 12px;
+            }
+
+            .task h2 {
+                font-size: 15px;
+            }
+
+            .task p {
+                font-size: 13px;
+            }
+
+            .subtitle {
+                letter-spacing: 2px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <br><br><br><br><br>
-    <a style="text-align:right; border-radius:5px; font-size:10px;">
-        <button><</button>
-    </a>
-    <h1 style="text-align:center;">MJCUBER Training</h1>
-    <br>
-    <p style="text-align:center;"><b>Time every PLL 30 times everyday until great recognition and under 1 second.</b></p>
-    <br>
-    <p style="text-align:center;"><b>Time every OLL 10 times everyday until great recognition under 2 seconds.</b></p>
-    <br>
-    <p style="text-align:center;"><b>Inspect cross in inspection and solve the cross while blindfolded 20 times everyday until under 2 seconds.</b></p>
-    <br>
-    <p style="text-align:center;"><b>Time every f2l pair blindfolded a few times everyday until every pair is under 1 second.</b></p>
-    <br>
-    <p style="text-align:center;"><b>Practice for solving pairs in the back or the left side everyday until normal.</b></p>
-    <br>
-    <p style="text-align:center;"><b>Watch walkthrough solves and get tips and tricks from world champions or great solvers everyday.</b></p>
+
+    <a class="back" href="index.html">← Back</a>
+
+    <header>
+        <div class="cube">🧊</div>
+        <h1>
+            MJCUBER
+            <span>TRAINING</span>
+        </h1>
+        <p class="subtitle">
+            BETTER PRACTICE = FASTER PROGRESS
+        </p>
+    </header>
+
+    <main class="training">
+
+        <section class="task pll">
+            <div class="number">01</div>
+            <div>
+                <h2>PLL Mastery</h2>
+                <p>
+                    Time every PLL 30 times every day.
+                    Build recognition and aim for sub-1-second
+                    execution.
+                </p>
+            </div>
+        </section>
+
+        <section class="task oll">
+            <div class="number">02</div>
+            <div>
+                <h2>OLL Mastery</h2>
+                <p>
+                    Time every OLL 10 times every day.
+                    Improve recognition and aim for
+                    sub-2-second execution.
+                </p>
+            </div>
+        </section>
+
+        <section class="task cross">
+            <div class="number">03</div>
+            <div>
+                <h2>Blind Cross</h2>
+                <p>
+                    Inspect your cross, then solve it blindfolded
+                    20 times every day. Aim for under 2 seconds.
+                </p>
+            </div>
+        </section>
+
+        <section class="task f2l">
+            <div class="number">04</div>
+            <div>
+                <h2>Blind F2L Training</h2>
+                <p>
+                    Practise every F2L pair blindfolded.
+                    Build piece tracking, memory and lookahead.
+                </p>
+            </div>
+        </section>
+
+        <section class="task rotation">
+            <div class="number">05</div>
+            <div>
+                <h2>Rotationless F2L</h2>
+                <p>
+                    Practise solving pairs at the back and
+                    on the left until recognition feels natural.
+                </p>
+            </div>
+        </section>
+
+        <section class="task walkthrough">
+            <div class="number">06</div>
+            <div>
+                <h2>Walkthrough Solves</h2>
+                <p>
+                    Follow expert walkthroughs and learn
+                    efficient solutions, finger tricks and
+                    new techniques.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        DISCIPLINE BUILDS SPEED
+    </footer>
+
 </body>
 </html>
+
