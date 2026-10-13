@@ -2,260 +2,680 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MJCUBER Training</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MJCUBER Training</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+:root {
+    --bg: #060a13;
+    --panel: #0c1424;
+    --blue: #24a8ff;
+    --text: #edf4ff;
+    --muted: #91a5c4;
+    --border: #1b2d49;
+}
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            padding: 40px 20px;
-            background:
-                radial-gradient(ellipse at top, #102b52 0%, transparent 55%),
-                #050914;
-            color: #f1f5ff;
-            font-family: Arial, sans-serif;
-        }
+* { box-sizing: border-box; }
 
-        .back {
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            display: inline-block;
-            padding: 12px 18px;
-            border: 1px solid #168cff;
-            border-radius: 12px;
-            color: #65baff;
-            text-decoration: none;
-            transition: 0.2s;
-        }
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 25px 18px 50px;
+    background:
+        radial-gradient(ellipse at 50% 0%, #12325c 0%, transparent 45%),
+        var(--bg);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+}
 
-        .back:hover {
-            background: #168cff22;
-            box-shadow: 0 0 20px #168cff55;
-        }
+button, input { font: inherit; }
 
-        header {
-            text-align: center;
-            margin: 30px auto 35px;
-        }
+button, a, input { -webkit-tap-highlight-color: transparent; }
 
-        .cube {
-            font-size: 55px;
-            margin-bottom: 10px;
-        }
+.back {
+    display: inline-block;
+    color: #8fcaff;
+    text-decoration: none;
+    padding: 11px 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #0c1424;
+    transition: .2s;
+}
 
-        h1 {
-            margin: 0;
-            font-size: clamp(34px, 6vw, 58px);
-            font-weight: 900;
-            letter-spacing: 3px;
-        }
+.back:hover {
+    border-color: var(--blue);
+    color: white;
+}
 
-        h1 span {
-            display: block;
-            color: #16baff;
-        }
+header {
+    max-width: 800px;
+    margin: 28px auto 32px;
+    text-align: center;
+}
 
-        .subtitle {
-            color: #91a9d1;
-            letter-spacing: 4px;
-            font-size: 12px;
-            margin-top: 16px;
-        }
+.cube {
+    font-size: 49px;
+    filter: drop-shadow(0 0 18px #168cff88);
+}
 
-        .training {
-            max-width: 800px;
-            margin: auto;
-            display: grid;
-            gap: 14px;
-        }
+h1 {
+    margin: 8px 0;
+    font-size: clamp(35px, 7vw, 60px);
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 1.03;
+}
 
-        .task {
-            --accent: #168cff;
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            padding: 20px;
-            background: linear-gradient(
-                110deg,
-                #101b30,
-                #080f1e
-            );
-            border: 1px solid #173761;
-            border-left: 4px solid var(--accent);
-            border-radius: 16px;
-            transition: transform 0.2s,
-                        border-color 0.2s,
-                        box-shadow 0.2s;
-        }
+h1 span {
+    display: block;
+    color: var(--blue);
+}
 
-        .task:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent);
-            box-shadow: 0 8px 28px #0008;
-        }
+.subtitle {
+    color: var(--muted);
+    letter-spacing: 3px;
+    font-size: 11px;
+    margin-top: 17px;
+}
 
-        .number {
-            color: var(--accent);
-            font-size: 13px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
+main {
+    max-width: 800px;
+    margin: auto;
+}
 
-        .task h2 {
-            font-size: 17px;
-            margin: 0 0 8px;
-        }
+.section-label {
+    color: #88a7d4;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 28px 0 12px;
+}
 
-        .task p {
-            color: #9eb1d0;
-            line-height: 1.6;
-            margin: 0;
-            font-size: 14px;
-        }
+.dashboard {
+    background: linear-gradient(135deg, #101d33, #0b1220);
+    border: 1px solid #244367;
+    border-radius: 18px;
+    padding: 21px;
+    margin-bottom: 24px;
+    box-shadow: 0 15px 40px #0003;
+}
 
-        .pll { --accent: #bd65ff; }
-        .oll { --accent: #ffb52e; }
-        .cross { --accent: #16baff; }
-        .f2l { --accent: #36e99a; }
-        .rotation { --accent: #ff526d; }
-        .walkthrough { --accent: #00e5e5; }
+.dash-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
 
-        footer {
-            text-align: center;
-            margin: 35px 0 5px;
-            color: #168cff;
-            font-size: 12px;
-            letter-spacing: 5px;
-        }
+.dash-top h2 {
+    margin: 0;
+    font-size: 19px;
+}
 
-        @media (max-width: 500px) {
-            body {
-                padding: 25px 14px;
-            }
+.date {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 7px;
+}
 
-            header {
-                margin-top: 65px;
-            }
+.percent {
+    color: #5fc4ff;
+    font-size: 27px;
+    font-weight: bold;
+    white-space: nowrap;
+}
 
-            .task {
-                gap: 12px;
-                padding: 16px 12px;
-            }
+.track {
+    height: 8px;
+    border-radius: 20px;
+    background: #1b2b43;
+    overflow: hidden;
+    margin-top: 21px;
+}
 
-            .task h2 {
-                font-size: 15px;
-            }
+.fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #168cff, #4ce4ff);
+    border-radius: inherit;
+    transition: width .3s ease;
+}
 
-            .task p {
-                font-size: 13px;
-            }
+.progress-caption {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 10px;
+}
 
-            .subtitle {
-                letter-spacing: 2px;
-            }
-        }
-    </style>
+.tasks {
+    display: grid;
+    gap: 13px;
+}
+
+.task {
+    --accent: #24a8ff;
+    background: linear-gradient(110deg, #101a2c, #0a1120);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: border-color .2s, transform .2s;
+}
+
+.task:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.task.done {
+    background: linear-gradient(110deg, #10251f, #0b1718);
+}
+
+.pll { --accent: #bd75ff; }
+.oll { --accent: #ffbc46; }
+.cross { --accent: #24baff; }
+.f2l { --accent: #40e5a0; }
+.rotation { --accent: #ff647d; }
+.walk { --accent: #24e1df; }
+
+.task-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+}
+
+.check {
+    appearance: none;
+    flex-shrink: 0;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #526783;
+    border-radius: 7px;
+    background: #08111e;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+}
+
+.check:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.check:checked::after {
+    content: "✓";
+    color: #06101a;
+    font-weight: 900;
+    font-size: 17px;
+}
+
+.task-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.task-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin: 0;
+    font-size: 16px;
+}
+
+.tag {
+    color: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    border-radius: 5px;
+    padding: 3px 6px;
+    font-size: 10px;
+    letter-spacing: .5px;
+}
+
+.task-summary {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 7px 0 0;
+}
+
+details {
+    border-top: 1px solid #192941;
+}
+
+details summary {
+    cursor: pointer;
+    color: #a8c9ef;
+    font-size: 12px;
+    padding: 12px 18px;
+    list-style: none;
+}
+
+details summary::-webkit-details-marker { display: none; }
+
+details summary::after {
+    content: "+";
+    float: right;
+    color: var(--accent);
+    font-size: 17px;
+    line-height: 12px;
+}
+
+details[open] summary::after { content: "−"; }
+
+.tips {
+    color: #b7c6dd;
+    font-size: 13px;
+    line-height: 1.8;
+    padding: 0 18px 17px;
+}
+
+.tips strong { color: white; }
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+}
+
+.status {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.reset {
+    color: #ff9ba9;
+    background: #25131d;
+    border: 1px solid #61303e;
+    padding: 11px 14px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.reset:hover { background: #3a1926; }
+
+footer {
+    text-align: center;
+    color: #408fca;
+    letter-spacing: 4px;
+    font-size: 11px;
+    margin-top: 40px;
+}
+
+@media (max-width: 500px) {
+    body { padding: 16px 12px 35px; }
+    header { margin-top: 25px; }
+    .dashboard { padding: 17px; }
+    .task-head { padding: 15px 12px; gap: 11px; }
+    .task-title { font-size: 14px; }
+    .task-summary { font-size: 12px; }
+    .subtitle { letter-spacing: 1.5px; }
+}
+</style>
 </head>
 
 <body>
 
-    <a class="back" href="index.html">← Back</a>
+<a class="back" href="index.html">← Back</a>
 
-    <header>
-        <div class="cube">🧊</div>
-        <h1>
-            MJCUBER
-            <span>TRAINING</span>
-        </h1>
-        <p class="subtitle">
-            BETTER PRACTICE = FASTER PROGRESS
-        </p>
-    </header>
+<header>
+    <div class="cube">🧊</div>
+    <h1>MJCUBER <span>TRAINING</span></h1>
+    <p class="subtitle">BETTER PRACTICE = FASTER PROGRESS</p>
+</header>
 
-    <main class="training">
+<main>
+    <div class="section-label">YOUR DAILY SESSION</div>
 
-        <section class="task pll">
-            <div class="number">01</div>
+    <section class="dashboard">
+        <div class="dash-top">
             <div>
-                <h2>PLL Mastery</h2>
-                <p>
-                    Time every PLL 30 times every day.
-                    Build recognition and aim for sub-1-second
-                    execution.
-                </p>
+                <h2>Daily progress</h2>
+                <div class="date" id="today"></div>
             </div>
-        </section>
+            <div class="percent" id="percent">0%</div>
+        </div>
 
-        <section class="task oll">
-            <div class="number">02</div>
-            <div>
-                <h2>OLL Mastery</h2>
-                <p>
-                    Time every OLL 10 times every day.
-                    Improve recognition and aim for
-                    sub-2-second execution.
-                </p>
+        <div
+            class="track"
+            id="progressTrack"
+            role="progressbar"
+            aria-label="Daily training progress"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+        >
+            <div class="fill" id="progressFill"></div>
+        </div>
+
+        <div class="progress-caption">
+            <span id="progressText">Ready to train?</span>
+            <span>DAILY CHECKLIST</span>
+        </div>
+    </section>
+
+    <div class="section-label">TRAINING MODULES</div>
+
+    <section class="tasks">
+
+        <article class="task pll">
+            <div class="task-head">
+                <input class="check" type="checkbox" id="pll"
+                       aria-label="Complete PLL training">
+                <div class="task-info">
+                    <h2 class="task-title">
+                        PLL Mastery <span class="tag">01 / ALGORITHMS</span>
+                    </h2>
+                    <p class="task-summary">
+                        Train every PLL 30 times daily. Improve recognition,
+                        finger tricks and execution, aiming for sub-1-second
+                        execution.
+                    </p>
+                </div>
             </div>
-        </section>
+            <details>
+                <summary>Training tips</summary>
+                <div class="tips">
+                    <strong>Recognition:</strong> Learn to identify cases
+                    from their patterns.<br>
+                    <strong>Finger tricks:</strong> Find comfortable,
+                    repeatable finger movements.<br>
+                    <strong>Execution:</strong> Aim for smooth, accurate
+                    algorithms instead of forcing speed.
+                </div>
+            </details>
+        </article>
 
-        <section class="task cross">
-            <div class="number">03</div>
-            <div>
-                <h2>Blind Cross</h2>
-                <p>
-                    Inspect your cross, then solve it blindfolded
-                    20 times every day. Aim for under 2 seconds.
-                </p>
+        <article class="task oll">
+            <div class="task-head">
+                <input class="check" type="checkbox" id="oll"
+                       aria-label="Complete OLL training">
+                <div class="task-info">
+                    <h2 class="task-title">
+                        OLL Mastery <span class="tag">02 / ALGORITHMS</span>
+                    </h2>
+                    <p class="task-summary">
+                        Train every OLL 10 times daily, improving recognition
+                        and aiming for sub-2-second execution.
+                    </p>
+                </div>
             </div>
-        </section>
+            <details>
+                <summary>Training tips</summary>
+                <div class="tips">
+                    <strong>Recognition:</strong> Notice the important
+                    sticker patterns.<br>
+                    <strong>Finger tricks:</strong> Practise comfortable
+                    grips and efficient movements.<br>
+                    <strong>Execution:</strong> Build consistency before
+                    pushing for speed.
+                </div>
+            </details>
+        </article>
 
-        <section class="task f2l">
-            <div class="number">04</div>
-            <div>
-                <h2>Blind F2L Training</h2>
-                <p>
-                    Practise every F2L pair blindfolded.
-                    Build piece tracking, memory and lookahead.
-                </p>
+        <article class="task cross">
+            <div class="task-head">
+                <input class="check" type="checkbox" id="cross"
+                       aria-label="Complete blind cross training">
+                <div class="task-info">
+                    <h2 class="task-title">
+                        Blind Cross <span class="tag">03 / PLANNING</span>
+                    </h2>
+                    <p class="task-summary">
+                        Inspect the cross, then solve it blindfolded
+                        20 times daily, aiming for under 2 seconds.
+                    </p>
+                </div>
             </div>
-        </section>
+            <details>
+                <summary>Training tips</summary>
+                <div class="tips">
+                    <strong>Inspection:</strong> Plan the cross before
+                    starting.<br>
+                    <strong>Memory:</strong> Remember the required moves
+                    and piece positions.<br>
+                    <strong>Execution:</strong> Keep the cube orientation
+                    stable and practise accurately.
+                </div>
+            </details>
+        </article>
 
-        <section class="task rotation">
-            <div class="number">05</div>
-            <div>
-                <h2>Rotationless F2L</h2>
-                <p>
-                    Practise solving pairs at the back and
-                    on the left until recognition feels natural.
-                </p>
+        <article class="task f2l">
+            <div class="task-head">
+                <input class="check" type="checkbox" id="f2l"
+                       aria-label="Complete blind F2L training">
+                <div class="task-info">
+                    <h2 class="task-title">
+                        Blind F2L <span class="tag">04 / LOOKAHEAD</span>
+                    </h2>
+                    <p class="task-summary">
+                        Practise F2L pairs blindfolded to improve piece
+                        tracking, memory and lookahead.
+                    </p>
+                </div>
             </div>
-        </section>
+            <details>
+                <summary>Training tips</summary>
+                <div class="tips">
+                    <strong>Start slowly:</strong> Memorise the pair's
+                    positions before closing your eyes.<br>
+                    <strong>Track:</strong> Follow the pieces mentally
+                    through the moves.<br>
+                    <strong>Apply:</strong> Return to normal solves and
+                    practise finding the next pair during execution.
+                </div>
+            </details>
+        </article>
 
-        <section class="task walkthrough">
-            <div class="number">06</div>
-            <div>
-                <h2>Walkthrough Solves</h2>
-                <p>
-                    Follow expert walkthroughs and learn
-                    efficient solutions, finger tricks and
-                    new techniques.
-                </p>
+        <article class="task rotation">
+            <div class="task-head">
+                <input class="check" type="checkbox" id="rotation"
+                       aria-label="Complete rotationless F2L training">
+                <div class="task-info">
+                    <h2 class="task-title">
+                        Rotationless F2L <span class="tag">05 / EO</span>
+                    </h2>
+                    <p class="task-summary">
+                        Practise solving pairs at the back and on the
+                        left without unnecessary cube rotations.
+                    </p>
+                </div>
             </div>
-        </section>
+            <details>
+                <summary>Training tips</summary>
+                <div class="tips">
+                    <strong>Keep orientation:</strong> Practise using
+                    R, U and L moves where suitable.<br>
+                    <strong>Recognise:</strong> Learn to spot pairs
+                    without turning the cube.<br>
+                    <strong>EO strategy:</strong> Handle awkward edges
+                    strategically rather than forcing inefficient solutions.
+                </div>
+            </details>
+        </article>
 
-    </main>
+        <article class="task walk">
+            <div class="task-head">
+                <input class="check" type="checkbox" id="walk"
+                       aria-label="Complete walkthrough solve training">
+                <div class="task-info">
+                    <h2 class="task-title">
+                        Walkthrough Solves <span class="tag">06 / LEARNING</span>
+                    </h2>
+                    <p class="task-summary">
+                        Follow expert walkthroughs and learn efficient
+                        solutions, finger tricks and new techniques.
+                    </p>
+                </div>
+            </div>
+            <details>
+                <summary>Training tips</summary>
+                <div class="tips">
+                    <strong>Cross:</strong> Study how the solver plans
+                    and executes it.<br>
+                    <strong>F2L:</strong> Notice pair choices and
+                    how the next pair is located.<br>
+                    <strong>Review:</strong> Reproduce useful solutions
+                    and adapt them to your own turning style.
+                </div>
+            </details>
+        </article>
 
-    <footer>
-        DISCIPLINE BUILDS SPEED
-    </footer>
+    </section>
+
+    <div class="actions">
+        <span class="status" id="saveStatus" aria-live="polite">
+            Progress saves automatically.
+        </span>
+        <button class="reset" id="resetButton" type="button">
+            Reset today's checklist
+        </button>
+    </div>
+
+</main>
+
+<footer>DISCIPLINE BUILDS SPEED</footer>
+
+<script>
+const taskIds = [
+    "pll", "oll", "cross", "f2l", "rotation", "walk"
+];
+
+const todayElement = document.getElementById("today");
+const percentElement = document.getElementById("percent");
+const fillElement = document.getElementById("progressFill");
+const progressText = document.getElementById("progressText");
+const progressTrack = document.getElementById("progressTrack");
+const saveStatus = document.getElementById("saveStatus");
+
+function getDateKey() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
+function getStorageKey() {
+    return "mjcuber-training-" + getDateKey();
+}
+
+function loadProgress() {
+    try {
+        const saved = JSON.parse(
+            localStorage.getItem(getStorageKey()) || "{}"
+        );
+
+        taskIds.forEach(id => {
+            document.getElementById(id).checked =
+                saved[id] === true;
+        });
+    } catch (error) {
+        taskIds.forEach(id => {
+            document.getElementById(id).checked = false;
+        });
+
+        saveStatus.textContent =
+            "Progress storage unavailable in this browser.";
+    }
+}
+
+function updateProgress() {
+    const completed = taskIds.filter(id =>
+        document.getElementById(id).checked
+    ).length;
+
+    const percentage = Math.round(
+        completed / taskIds.length * 100
+    );
+
+    percentElement.textContent = percentage + "%";
+    fillElement.style.width = percentage + "%";
+    progressTrack.setAttribute("aria-valuenow", percentage);
+
+    if (completed === 0) {
+        progressText.textContent = "Ready to train?";
+    } else if (completed === taskIds.length) {
+        progressText.textContent = "All training goals completed!";
+    } else {
+        progressText.textContent = "Keep going — you're making progress!";
+    }
+
+    document.querySelectorAll(".task").forEach(task => {
+        const checkbox = task.querySelector(".check");
+        task.classList.toggle("done", checkbox.checked);
+    });
+}
+
+function saveProgress() {
+    const data = {};
+
+    taskIds.forEach(id => {
+        data[id] = document.getElementById(id).checked;
+    });
+
+    try {
+        localStorage.setItem(getStorageKey(), JSON.stringify(data));
+        saveStatus.textContent = "Progress saved automatically.";
+    } catch (error) {
+        saveStatus.textContent =
+            "Could not save progress in this browser.";
+    }
+
+    updateProgress();
+}
+
+function updateDate() {
+    todayElement.textContent = new Date().toLocaleDateString(
+        undefined,
+        {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        }
+    );
+}
+
+taskIds.forEach(id => {
+    document.getElementById(id).addEventListener(
+        "change",
+        saveProgress
+    );
+});
+
+document.getElementById("resetButton").addEventListener(
+    "click",
+    () => {
+        const confirmed = confirm(
+            "Reset all of today's training checkboxes?"
+        );
+
+        if (!confirmed) return;
+
+        taskIds.forEach(id => {
+            document.getElementById(id).checked = false;
+        });
+
+        saveProgress();
+        saveStatus.textContent = "Today's checklist has been reset.";
+    }
+);
+
+updateDate();
+loadProgress();
+updateProgress();
+</script>
 
 </body>
 </html>
-
